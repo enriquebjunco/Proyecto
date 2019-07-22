@@ -1,0 +1,10 @@
+---
+
+
+- name: Configurar Switch Este
+  hosts: sw-este
+  gather_facts: false
+  connection: local
+  
+  roles:
+    - config_sw_este
