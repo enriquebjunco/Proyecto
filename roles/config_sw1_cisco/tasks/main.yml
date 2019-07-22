@@ -1,2 +1,3 @@
 ---
-# tasks file for config_sw1_cisco
+
+- include: config_vlan.yml
