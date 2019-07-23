@@ -1,10 +1,9 @@
 ---
 
-
-- name: Configurar Switch Este
-  hosts: sw-este
+- name: Configurar Switch 1 Cisco
+  hosts: SW1
   gather_facts: false
   connection: local
   
   roles:
-    - config_sw_este
+    - config_sw1_cisco

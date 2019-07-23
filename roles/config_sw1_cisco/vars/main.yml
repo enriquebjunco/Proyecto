@@ -1,2 +1,7 @@
 ---
 # vars file for config_sw1_cisco
+
+
+cli:
+  username: quique
+  password: cisco
