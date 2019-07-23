@@ -1,0 +1,26 @@
+---
+
+- name: Show ip interface brief
+  ios_command:
+    commands:
+      - show ip interface brief
+
+  register: sh_ip_int_brief
+
+- debug: var=sh_ip_int_brief.stdout_lines
+
+- name: Show Running Config
+  ios_command:
+    commands:
+      - show run | begin interface
+
+  register: sh_run_conf_int
+
+- debug: var=sh_run_conf_int.stdout_lines
+
+- name: save running to startup when modified
+  ios_config:
+    provider: "{{ cli }}"
+    save_when: modified
+
+  when: ansible_net_hostname == "SW1"
