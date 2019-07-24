@@ -1,0 +1,22 @@
+enable
+config t
+hostname SW1
+username quique privilege 15 password 0 cisco
+line vty 0 4
+   login local
+   transport input ssh
+ip default-gateway 192.168.99.1
+ip domain-name ansible.com
+crypto key generate rsa
+1024
+ip ssh version 2
+vlan 99 
+name Management
+interface vlan 99
+ ip address 192.168.99.3 255.255.255.0
+ no sh
+interface GigabitEthernet0/0
+ switchport access vlan 99
+ switchport mode access
+
+wr

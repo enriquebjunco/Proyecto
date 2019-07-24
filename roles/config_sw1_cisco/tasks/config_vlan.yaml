@@ -1,39 +1,38 @@
 --- 
 
-- name: Register Facts
-  ios_facts:
-    gather_subset: all
-    provider: "{{ cli }}"
-
  #Habilitar y describir las interfaces  
  
 - name: Enable and describe GigabitEthernet0/1
   ios_interface:
     provider: "{{ cli }}"
     name: GigabitEthernet0/1
-    description: SW1_Cisco -> R1_Cisco
+    description: SW1_Cisco - R1_Cisco
+    enabled: True
 
 - name: Enable and describe GigabitEthernet0/2
   ios_interface:
     provider: "{{ cli }}"
     name: GigabitEthernet0/2
-    description: SW1_Cisco -> SW2_Cisco
+    description: SW1_Cisco - SW2_Cisco
+    enabled: True
 
 - name: Enable and describe GigabitEthernet0/3
   ios_interface:
     provider: "{{ cli }}"
     name: GigabitEthernet0/3
-    description: SW1_Cisco -> SW3_Arista
+    description: SW1_Cisco - SW3_Arista
+    enabled: True
 
 - name: Enable and describe GigabitEthernet1/0
   ios_interface:
     provider: "{{ cli }}"
     name: GigabitEthernet1/0
-    description: SW1_Cisco -> SW4_Cisco
+    description: SW1_Cisco - SW4_Cisco
+    enabled: True
 
  #Activar modo access en puertos no usados y desactivarlos
 
-- name: Modo access para las demás interfaces & Shutdown interfaces
+- name: Modo access para las demas interfaces & Shutdown interfaces
   ios_config:
     provider: "{{ cli }}"
     lines: 

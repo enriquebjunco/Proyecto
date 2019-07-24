@@ -1,7 +1,18 @@
 ---
 # vars file for config_sw1_cisco
 
+ # Provider #
+ cli:
+   authorize: yes
+   auth_pass: cisco
+   password: cisco
 
-cli:
-  username: quique
-  password: cisco
+ # Identificadores VLAN #
+ id_vlan10: 10
+ id_vlan20: 20
+ id_vlan30: 30
+
+ # Nombres VLAN #
+ name_vlan10: Ventas
+ name_vlan20: RRHH
+ name_vlan30: Contabilidad

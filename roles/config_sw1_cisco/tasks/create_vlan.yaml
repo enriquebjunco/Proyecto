@@ -1,0 +1,14 @@
+---
+
+- name: create VLAN
+  ios_config:
+    provider: "{{ cli }}"
+    lines:
+      - name "{{ item.name }}"
+    parents:
+      - vlan "{{ item.id }}"
+
+  with_items:
+    - { id: "{{ id_vlan10 }}", name: "{{ name_vlan10 }}" }
+    - { id: "{{ id_vlan20 }}", name: "{{ name_vlan20 }}" }
+    - { id: "{{ id_vlan30 }}", name: "{{ name_vlan30 }}" }

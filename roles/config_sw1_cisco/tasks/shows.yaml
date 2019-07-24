@@ -1,5 +1,10 @@
 ---
 
+- name: Register Facts
+  ios_facts:
+    gather_subset: all
+    provider: "{{ cli }}"
+
 - name: Show ip interface brief
   ios_command:
     commands:
@@ -7,16 +12,16 @@
 
   register: sh_ip_int_brief
 
-- debug: var=sh_ip_int_brief.stdout_lines
+- debug: var=sh_ip_int_brief.stdout_lines 
 
-- name: Show Running Config
+- name: show vlan brief
   ios_command:
     commands:
-      - show run | begin interface
+      - show vlan brief
+  
+  register: sh_vlan_bri
 
-  register: sh_run_conf_int
-
-- debug: var=sh_run_conf_int.stdout_lines
+- debug: var=sh_vlan_bri.stdout_lines
 
 - name: save running to startup when modified
   ios_config:
