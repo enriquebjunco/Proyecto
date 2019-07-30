@@ -1,0 +1,31 @@
+---
+
+- name: Register Facts
+  eos_facts:
+    gather_subset: all
+    provider: "{{ cli }}"
+
+- name: Show interfaces status
+  eos_command:
+    commands:
+      - show interfaces status
+
+  register: sh_int_status
+
+- debug: var=sh_int_status.stdout_lines 
+
+- name: show interfaces vlans
+  eos_command:
+    commands:
+      - show interfaces vlans
+  
+  register: sh_int_vlans
+
+- debug: var=sh_int_vlans.stdout_lines
+
+- name: save running to startup when modified
+  eos_config:
+    provider: "{{ cli }}"
+    save_when: modified
+
+  when: ansible_net_hostname == "SW3"

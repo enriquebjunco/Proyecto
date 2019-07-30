@@ -1,0 +1,51 @@
+--- 
+ #Habilitar y describir las interfaces  
+- name: Enable and describe Gi0/0, Gi0/1, Gi0/2
+  ios_interface:
+    provider: "{{ cli }}"
+    aggregate:
+    - { name: GigabitEthernet0/0, description: SW2_Cisco - SW1_Cisco }
+    - { name: GigabitEthernet0/1, description: SW2_Cisco - PC-1 }
+    - { name: GigabitEthernet0/2, description: SW2_Cisco - PC-2 }
+    enabled: True
+
+ #Activar puertos PC modo access
+
+- name: Modo access interface Gi0/1
+  ios_config:
+    provider: "{{ cli }}"
+    lines:
+      - switchport mode access 
+      - switchport access vlan 10
+    parents: interface GigabitEthernet0/1
+ 
+- name: Modo access interface Gi0/2                      
+  ios_config:
+    provider: "{{ cli }}"
+    lines:
+      - switchport mode access
+      - switchport access vlan 20           
+    parents: interface GigabitEthernet0/2
+
+ #Activar modo access en puertos no usados y desactivarlos
+
+- name: shutdown interfaces y modo access
+  ios_config:
+    provider: "{{ cli }}"
+    lines: 
+      - shutdown
+    parents: "{{ item }}"
+  with_items:
+    - interface GigabitEthernet0/3
+    - interface GigabitEthernet1/0
+    - interface GigabitEthernet1/1
+    - interface GigabitEthernet1/2
+    - interface GigabitEthernet1/3
+    - interface GigabitEthernet2/0
+    - interface GigabitEthernet2/1
+    - interface GigabitEthernet2/2
+    - interface GigabitEthernet2/3
+    - interface GigabitEthernet3/0
+    - interface GigabitEthernet3/1
+    - interface GigabitEthernet3/2
+    - interface GigabitEthernet3/3

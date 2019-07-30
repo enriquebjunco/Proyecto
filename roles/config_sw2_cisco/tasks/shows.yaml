@@ -1,0 +1,31 @@
+---
+
+- name: Register Facts
+  ios_facts:
+    gather_subset: all
+    provider: "{{ cli }}"
+
+- name: Show ip interface brief
+  ios_command:
+    commands:
+      - show ip interface brief
+
+  register: sh_ip_int_brief
+
+- debug: var=sh_ip_int_brief.stdout_lines 
+
+- name: show vlan brief
+  ios_command:
+    commands:
+      - show vlan brief
+  
+  register: sh_vlan_bri
+
+- debug: var=sh_vlan_bri.stdout_lines
+
+- name: save running to startup when modified
+  ios_config:
+    provider: "{{ cli }}"
+    save_when: modified
+
+  when: ansible_net_hostname == "SW2"

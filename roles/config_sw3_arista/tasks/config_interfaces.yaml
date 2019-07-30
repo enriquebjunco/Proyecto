@@ -1,0 +1,45 @@
+--- 
+ #Habilitar y describir las interfaces  
+- name: Enable and describe Eth1, Eth2, Eth3
+  eos_interface:
+    provider: "{{ cli }}"
+    aggregate:
+    - { name: Ethernet1, description: SW3_Arista - SW1_Cisco }
+    - { name: Ethernet2, description: SW3_Arista - PC-3 }
+    - { name: Ethernet3, description: SW3_Arista - PC-4 }
+    enabled: True
+
+ #Activar puertos PC modo access
+
+- name: Modo access interfaces Eth2
+  eos_config:
+    provider: "{{ cli }}"
+    lines: 
+      - switchport access vlan 10
+    parents: interface Ethernet2
+ 
+- name: Modo access interfaces Eth3                      
+  eos_config:
+    provider: "{{ cli }}"
+    lines:
+      - switchport access vlan 30           
+    parents: interface Ethernet3
+
+ #Activar modo access en puertos no usados y desactivarlos
+
+- name: shutdown interfaces y modo access
+  eos_config:
+    provider: "{{ cli }}"
+    lines: 
+      - shutdown
+    parents: "{{ item }}"
+  with_items:
+    - interface Ethernet4
+    - interface Ethernet5
+    - interface Ethernet6
+    - interface Ethernet7
+    - interface Ethernet8
+    - interface Ethernet9
+    - interface Ethernet10
+    - interface Ethernet11
+    - interface Ethernet12 

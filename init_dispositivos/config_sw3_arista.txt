@@ -1,0 +1,19 @@
+enable
+config t
+hostname SW3
+enable secret arista
+username quique privilege 15 secret arista
+management ssh
+ no shut
+ip route 0.0.0.0/0 192.168.99.1
+ip domain-name ansible.com
+vlan 99 
+name Management
+interface vlan 99
+ ip address 192.168.99.5 255.255.255.0
+ no sh
+interface Ethernet1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,99
+
+wr

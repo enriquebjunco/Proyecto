@@ -1,9 +1,28 @@
 ---
 
+#- name: Configurar Switch 1 Cisco
+ # hosts: SW1
+ # gather_facts: false
+ # connection: local    
+
+ # roles:
+  #  - config_sw1_cisco
+
+#- name: Configurar Switch 3 Arista
+ # hosts: SW3
+ # gather_facts: false
+ # connection: local
+
+  #roles:
+   # - config_sw3_arista
+
 - name: Configurar Switch 1 Cisco
-  hosts: SW1
+  hosts: SW2
   gather_facts: false
-  connection: local    
+  connection: local
 
   roles:
-    - config_sw1_cisco
+    - config_sw2_cisco
+
+
+

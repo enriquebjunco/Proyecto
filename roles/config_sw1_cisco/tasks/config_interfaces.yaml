@@ -1,0 +1,50 @@
+--- 
+ #Habilitar y describir las interfaces  
+ 
+- name: Enable and describe Gi0/1, Gi0/2, Gi0/3, Gi1/0
+  ios_interface:
+    provider: "{{ cli }}"
+    aggregate:
+    - { name: GigabitEthernet0/1, description: SW1_Cisco - R1_Cisco }
+    - { name: GigabitEthernet0/2, description: SW1_Cisco - SW2_Cisco }
+    - { name: GigabitEthernet0/3, description: SW1_Cisco - SW3_Arista }
+    - { name: GigabitEthernet1/0, description: SW1_Cisco - SW4_Cisco }
+    enabled: True
+
+ #Activar puertos en modo trunk
+
+- name: Modo trunk interfaces Gi0/1, Gi0/2, Gi0/3, Gi1/0
+  ios_config:
+    provider: "{{ cli }}"
+    lines: 
+      - switchport trunk encapsulation dot1q
+      - switchport trunk allowed vlan 10,20,30,99
+      - switchport mode trunk    
+    parents: "{{ item }}"
+  with_items:
+    - interface GigabitEthernet0/1
+    - interface GigabitEthernet0/2
+    - interface GigabitEthernet0/3
+    - interface GigabitEthernet1/0
+
+ #Activar modo access en puertos no usados y desactivarlos
+
+- name: shutdown interfaces y modo access
+  ios_config:
+    provider: "{{ cli }}"
+    lines: 
+      - switchport mode access
+    parents: "{{ item }}" 
+    after: shutdown
+  with_items:
+    - interface GigabitEthernet1/1
+    - interface GigabitEthernet1/2
+    - interface GigabitEthernet1/3
+    - interface GigabitEthernet2/0
+    - interface GigabitEthernet2/1
+    - interface GigabitEthernet2/2
+    - interface GigabitEthernet2/3
+    - interface GigabitEthernet3/0
+    - interface GigabitEthernet3/1
+    - interface GigabitEthernet3/2
+    - interface GigabitEthernet3/3

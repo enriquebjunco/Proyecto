@@ -1,0 +1,6 @@
+---
+# tasks file for config_sw3_arista
+
+- include: create_vlan.yaml
+- include: config_interfaces.yaml
+- include: shows.yaml

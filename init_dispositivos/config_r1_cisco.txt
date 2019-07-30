@@ -1,0 +1,20 @@
+config t
+hostname R1
+enable secret ansible
+username quique privilege 15 password cisco
+ip domain-name ansible.com
+crypto key generate rsa
+1024
+ip ssh version 2
+line vty 0 4
+ login local
+ transport input ssh
+interface Gi0/0
+ no shut
+interface gi0/0.99
+ description Management LAN
+ encapsulation dot1q 99
+ ip address 192.168.99.1 255.255.255.0
+ no sh
+end
+wr

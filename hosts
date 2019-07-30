@@ -1,2 +1,10 @@
+
 [cisco-switch]
 SW1
+SW2
+
+[arista-switch]
+SW3
+
+[cisco-router]
+R1
